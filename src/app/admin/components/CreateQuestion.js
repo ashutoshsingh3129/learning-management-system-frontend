@@ -14,13 +14,7 @@ const CreateQuestion = ({ onCreate }) => {
     const newQuestion = { difficulty, content, choices, correctAnswer };
 
     try {
-    //   const response = await fetch('/api/questions', {
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify(newQuestion),
-    //   });
+    
         const response=await createQuestion(newQuestion)
       if (response.ok) {
         const createdQuestion = await response.json();

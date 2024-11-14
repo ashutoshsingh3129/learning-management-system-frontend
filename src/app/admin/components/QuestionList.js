@@ -1,18 +1,16 @@
-// src/app/admin/components/QuestionList.js
 "use client";
 
 import { useState, useEffect } from "react";
-import axios from "axios";
 import CreateQuestion from "./CreateQuestion";
+import { getAllQuestion } from "@/services/api";
 
 const QuestionList = ({ onEdit }) => {
   const [questions, setQuestions] = useState([]);
 
   useEffect(() => {
-    // Fetch all questions when component loads
     const fetchQuestions = async () => {
       try {
-        const response = await axios.get("/api/questions");
+        const response = await getAllQuestion();
         setQuestions(response.data);
       } catch (error) {
         console.error("Failed to fetch questions:", error);
@@ -21,9 +19,11 @@ const QuestionList = ({ onEdit }) => {
     fetchQuestions();
   }, []);
 
+  console.log("QuestionList received onEdit:", onEdit); // Verify that onEdit is a function
+
   const deleteQuestion = async (id) => {
     try {
-      await axios.delete(`/api/questions/${id}`);
+      await deleteQuestion(id);
       setQuestions(questions.filter((question) => question.id !== id));
     } catch (error) {
       console.error("Failed to delete question:", error);
@@ -43,13 +43,16 @@ const QuestionList = ({ onEdit }) => {
         </thead>
         <tbody>
           {questions.map((question) => (
-            <tr key={question.id} className="border-b">
-              <td className="py-3 px-4">{question.text}</td>
+            <tr key={question._id} className="border-b">
+              <td className="py-3 px-4">{question.content}</td>
               <td className="py-3 px-4">{question.difficulty}</td>
               <td className="py-3 px-4">
                 <button
                   className="text-blue-500"
-                  onClick={() => onEdit(question)} // Call onEdit with selected question
+                  onClick={() => {
+                    console.log("onEdit clicked with question:", question); // Debug log
+                    onEdit(question);
+                  }}
                 >
                   Edit
                 </button>

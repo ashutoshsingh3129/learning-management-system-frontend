@@ -2,14 +2,18 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { register } from '../../redux/actions/authActions';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 const Register = () => {
   const [formData, setFormData] = useState({ email: '', password: '', name: '', mobile: '' });
   const dispatch = useDispatch();
+  const router=useRouter()
 
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(register(formData));
+    router.push('/auth/login')
   };
 
   return (
@@ -45,6 +49,7 @@ const Register = () => {
       <button type="submit" className="w-full py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-200">
         Register
       </button>
+      <p><Link href="/auth/login">Already have account? Login </Link></p>
     </form>
   );
 };

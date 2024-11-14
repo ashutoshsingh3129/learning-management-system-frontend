@@ -15,9 +15,13 @@ API.interceptors.request.use((config) => {
 });
 
 // API requests
-export const registerUser = (data) => API.post('/auth/register', data);
+export const registerUser = (data) => API.post('/register', data);
 export const loginUser = (data) => API.post('/auth/login', data);
 export const fetchQuestion = (testId) => API.get(`/tests/${testId}`);
 export const createQuestion = (data) => API.post('/question', data);
 export const startTest = (testId,questionId,data) => API.post(`/tests/${testId}/questions/${questionId}/answer`,data);
 export const registerTest=(data)=> API.post('tests/register',data)
+export const getAllQuestion=()=>API.get('/question')   
+export const getOneQuestion=(id)=>API.get(`/question/${id}`)   
+export const deleteQuestion=(id)=>API.delete(`/question/${id}`)  
+export const getAllTestResults=()=>API.get('tests/result')

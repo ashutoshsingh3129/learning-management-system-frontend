@@ -65,7 +65,7 @@ const TestPage = () => {
 
   return (
     <div className="max-w-md mx-auto p-6 bg-white shadow-lg rounded-lg">
-      <h1 className="text-2xl font-bold text-center text-gray-800 mb-4">Register for the Test</h1>
+      <h1 className="text-2xl font-bold text-center text-gray-800 mb-4">{!question?'Register for the Test':"Questions"}</h1>
       
       {!question && !testCompleted && (
         <>

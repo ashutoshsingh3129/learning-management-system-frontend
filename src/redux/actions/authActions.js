@@ -9,10 +9,11 @@ export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
 export const login = (credentials) => async (dispatch) => {
   try {
     const response = await  loginUser(credentials)
-    console.log("rr",response)
-    localStorage.setItem('token',response.data.accessToken)
+   if( response.data){
+   localStorage.setItem('token',response.data.accessToken)
     localStorage.setItem('userId',response.data.userId)
     dispatch({ type: LOGIN_SUCCESS, payload: response.data });
+  }
   } catch (error) {
     console.error('Login failed:', error);
   }

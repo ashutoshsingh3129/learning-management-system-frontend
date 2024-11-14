@@ -13,14 +13,8 @@ const EditQuestion = ({ question, onUpdate }) => {
     const updatedQuestion = { difficulty, content, choices, correctAnswer };
 
     try {
-      const response = await fetch(`/api/questions/${question._id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(updatedQuestion),
-      });
-
+    
+const response = await getOneQuestion(question._id)
       if (response.ok) {
         const updatedData = await response.json();
         onUpdate(updatedData);

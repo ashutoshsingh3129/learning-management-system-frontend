@@ -1,18 +1,22 @@
 "use client";
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { login } from '@/redux/actions/authActions';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 const Login = () => {
   const [credentials, setCredentials] = useState({ email: '', password: '' });
   const dispatch = useDispatch();
   const router = useRouter();
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(login(credentials));
-    router.push('../user/register')
+    if(isAuthenticated) {    router.push('../user/test')
+    }
+
   };
 
   return (
@@ -34,6 +38,7 @@ const Login = () => {
       <button type="submit" className="w-full py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-200">
         Login
       </button>
+      <p><Link href="/auth/register">No account? Sign up </Link></p>
     </form>
   );
 };
